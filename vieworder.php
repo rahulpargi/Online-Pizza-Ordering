@@ -1,28 +1,4 @@
-<?php
-$servername = "localhost";
-$username = "test";
-$password = "1234";
-$db="pizza_store";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password,$db);
-echo "success";
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-$sql = "SELECT * FROM orders";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["size"]. " - Name: " . $row["topping"]. " " . $row["email"]. "<br>";
-    }
-} else {
-    echo "0 results";
-}
-$conn->close();
-?>
 
 <!DOCTYPE html>
 <html>
@@ -76,7 +52,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
-<center><h1>Your Order Summary</h1></center>
+<center><h1>Your Orders</h1></center>
 <div id="divCheckbox" >
            
 </div>
@@ -84,98 +60,61 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <thead>
       <tr class="w3-light-grey">
         <th>Pizza</th>
-        <th>Size</th>
-        <th>Toppings</th>
-        <th>Total</th>
+        <th>topping</th>
+        <th>address</th>
+        <th>name</th>
+        
       </tr>
     </thead>
-    <tr>
-      
-      
-      
-      
-    </tr>
+    <?php
+$servername = "localhost";
+$username = "test";
+$password = "1234";
+$db="pizza_store";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password,$db);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT size,topping,names,addresss FROM orders";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        // echo "<tr><td>" . $row["size"]. "</td><td>" . $row["topping"] . "</td><td>"
+        // . $row["addresss"].$row["names"] "</td></tr>";
+        echo"<tr>";
+        echo"<td>".$row["size"]."</td>";
+        echo"<td>".$row["topping"]."</td>";
+        echo"<td>".$row["addresss"]."</td>";
+        echo"<td>".$row["names"]."</td>";
+
+        echo"</tr>";
+       
+       
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+
+
+?>
+
+    
+    
+   
+   
    
   </table><br>
   
   <!--button class="w3-button w3-teal" onclick="location.href='/checkout'">Check Out</button><br-->
   
-  <div class="w3-container">
   
-  <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-green w3-large">Check Out</button>
-  <form class="w3-container" action="/pizza/connect.php" method="post">
-
-  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-      <div class="w3-center"><br>
-        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-        
-      </div>
-
-      
-        <div class="w3-section">
-       
-        <h3>Enter Payment Information</h3>
-        <div id="divCheckbox" style="display: none;">
-        
-           <input type="text" name="size" value="<?php echo $size?>">
-           <input type="text" name="topping" value="<?php
-
-                                                        if($topping==0.40){
-                                                            echo 'Mushroom';
-                                                        }else if($topping==0.30){
-                                                            echo 'Onions';
-                                                        }else if($topping==0.40){
-                                                            echo 'Black Olives';
-                                                        }else if($topping==0.50){
-                                                            echo 'Sausage';
-                                                        }else if($topping==0.60){
-                                                            echo 'Pepperoni';
-                                                        }
-
-                                                        ?>">
-           <input type="text" name="total" value="<?php echo $_REQUEST["total"]; ?>">
-           <input type="text" name="size" value="<?php
-                                                    if($size==8){
-                                                        echo 'Medium';
-                                                    }else if($size==5){
-                                                        echo 'Small';
-                                                    }else if($size==12){
-                                                        echo 'Large';
-                                                    }
-                                                ?>">
- 
-        </div>
-
-          <label><b>Name</b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>
-          <label><b>Address</b></label>
-          <input class="w3-input w3-border" type="text" placeholder="Enter Address" name="address" required>
-          <label><b>Email id</b></label>
-          <input class="w3-input w3-border" type="email" placeholder="abc@cde.com" name="email" required>
-          <label><b>Card No</b></label>
-          <input class="w3-input w3-border" type="text" placeholder="xxxx-xxxx-xxxx-xxxx" name="card" required>
-          <br>
-          <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit" onclick="alert('Order Placed Successfully')">Place</button>
-
-          
-        </div>
-     
-
-      
-
-    </div>
-  </div>
-</div>
-
-</div>
-      </div>
-    </div>
-  </div>
-  </form>
-</div>
-
 <script>
 // Script to open and close sidebar
 function w3_open() {
