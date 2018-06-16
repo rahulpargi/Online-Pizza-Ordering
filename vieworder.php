@@ -90,37 +90,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       </tr>
     </thead>
     <tr>
-      <td><?php echo $_REQUEST["pizza"]; ?><br></td>
-      <td>
-      <?php 
-        $size=$_REQUEST["size"];
-        $topping=$_REQUEST['toppings'];?>
-        <?php
-        if($size==8){
-            echo 'Medium';
-        }else if($size==5){
-            echo 'Small';
-        }else if($size==12){
-            echo 'Large';
-        }
-    ?>
-</td>
-      <td><?php
-
-if($topping==0.40){
-    echo 'Mushroom';
-}else if($topping==0.30){
-    echo 'Onions';
-}else if($topping==0.40){
-    echo 'Black Olives';
-}else if($topping==0.50){
-    echo 'Sausage';
-}else if($topping==0.60){
-    echo 'Pepperoni';
-}
-
-?></td>
-      <td><?php echo $_REQUEST["total"]; ?></td>
+      
+      
+      
       
     </tr>
    
